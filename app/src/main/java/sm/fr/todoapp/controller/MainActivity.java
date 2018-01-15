@@ -25,9 +25,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.List;
-
 import sm.fr.todoapp.R;
 import sm.fr.todoapp.model.DatabaseHandler;
 import sm.fr.todoapp.model.Task;
@@ -55,12 +53,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         this.db = new DatabaseHandler(this);
         this.dao = new TaskDAO(this.db);
 
+        //Insertion de données (D'abord) ensuite MAJ
+        this.dao.insertTodo(this.db.getWritableDatabase());
+
         //Mise à jour de la table
         if(this.db.isUpdated()){
             this.dao.upgrade();
         }
-        //Insertion de données
-        this.dao.insertTodo(this.db.getWritableDatabase());
 
         taskListView = findViewById(R.id.todoListView);
         spinnerStatus = findViewById(R.id.spinnerStatus);
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         //this.taskList = this.dao.findAll();
         initTaskList();
-
     }
 
     /**
@@ -161,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-
     /**
      * Confirmation de la suppression
      * @param id
@@ -220,10 +217,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
          */
         public TaskArrayAdapter(@NonNull Activity context, int resource, @NonNull List<Task> data) {
             super(context, resource, data);
-            this.context = context;
-            this.layout = resource;
-            this.data = data;
-
+            this.context    = context;
+            this.layout     = resource;
+            this.data       = data;
         }
 
         /**

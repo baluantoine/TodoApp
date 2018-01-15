@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import sm.fr.todoapp.R;
 import sm.fr.todoapp.model.DatabaseHandler;
 import sm.fr.todoapp.model.Task;
@@ -21,6 +20,7 @@ import sm.fr.todoapp.model.TaskDAO;
 public class TaskFormActivity extends AppCompatActivity {
 
     EditText editTextTaskName;
+    EditText editUserName;
 
     /**
      * Création de l'activité
@@ -32,6 +32,7 @@ public class TaskFormActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_form);
 
         editTextTaskName = findViewById(R.id.editTextTask);
+        editUserName = findViewById(R.id.editTextName);
 
         ActionBar actionBar = getActionBar();
         if(actionBar != null){
@@ -45,12 +46,13 @@ public class TaskFormActivity extends AppCompatActivity {
      */
     public void onValidForm(View view) {
         String taskName = this.editTextTaskName.getText().toString();
+        String userName = this.editUserName.getText().toString();
 
-        if (taskName.trim().equals("")) {
-            String message = "La tâche ne peut être vide";
+        if (taskName.trim().equals("")|| userName.trim().equals(""))  {
+            String message = "La tâche ne peut être vide et/ou l'utilisateur ne peuvent être vide";
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         } else {
-            Task task = new Task(taskName);
+            Task task = new Task(taskName, userName);
             this.processForm(task);
         }
     }

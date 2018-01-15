@@ -9,19 +9,16 @@ package sm.fr.todoapp.model;
 public class Task {
 
     private String taskName;
+    private String userName;
     private Boolean done = false;
     private Long id;
 
     public Task() {
     }
 
-    public Task(String taskName) {
+    public Task (String taskName, String username) {
         this.taskName = taskName;
-    }
-
-    public Task(String taskName, Boolean done) {
-        this.taskName = taskName;
-        this.done = done;
+        this.userName = userName;
     }
 
     public String getTaskName() {
@@ -30,6 +27,15 @@ public class Task {
 
     public Task setTaskName(String taskName) {
         this.taskName = taskName;
+        return this;
+    }
+
+    public String getUsername() {
+        return userName;
+    }
+
+    public Task setUsername(String username) {
+        this.userName = username;
         return this;
     }
 
