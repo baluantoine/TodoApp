@@ -1,3 +1,6 @@
+/*****************************************
+ * Author : Baluzolanga Antoine          *
+ *****************************************/
 package sm.fr.todoapp.model;
 
 import android.content.ContentValues;
@@ -5,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,6 +205,26 @@ public class TaskDAO implements DAOInterface<Task> {
             statement.bindString(1, "Sortir la poubelle");
             statement.bindLong(2, 0);
             statement.executeInsert();
+        }
+    }
+
+    public void upgrade(){
+        SQLiteDatabase db = this.db.getWritableDatabase();
+        //Début de la transaction
+        db.beginTransaction();
+        try {
+            //La ou les commandes SQL a exécuter dans une transaction
+            db.execSQL("ALTER TABLE tasks ADD user TEXT");
+            db.execSQL("UPDATE tasks SET user='anonymous'");
+            //Définir qur la transaction est un succès
+            db.setTransactionSuccessful();
+        } catch (Exception ex){
+            Log.d("DatabaseHandler", ex.getMessage());
+        } finally {
+            //Finalisation de la transaction
+            //Commit si la transaction est un succès
+            //sinon rollback (annulation des opérations)
+            db.endTransaction();
         }
     }
 }

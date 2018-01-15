@@ -1,3 +1,6 @@
+/*****************************************
+ * Author : Baluzolanga Antoine          *
+ *****************************************/
 package sm.fr.todoapp.controller;
 
 import android.app.Activity;
@@ -52,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         this.db = new DatabaseHandler(this);
         this.dao = new TaskDAO(this.db);
 
+        //Mise à jour de la table
+        if(this.db.isUpdated()){
+            this.dao.upgrade();
+        }
+        //Insertion de données
         this.dao.insertTodo(this.db.getWritableDatabase());
 
         taskListView = findViewById(R.id.todoListView);

@@ -1,9 +1,13 @@
+/*****************************************
+ * Author : Baluzolanga Antoine          *
+ *****************************************/
 package sm.fr.todoapp.model;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 /**
  * Création de la structure de la base de données
@@ -12,7 +16,7 @@ import android.database.sqlite.SQLiteStatement;
 public class DatabaseHandler extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "todo.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String TASK_TABLE_SQL = "CREATE TABLE tasks(" +
             "id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -46,8 +50,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersionNumber, int newVersionNumber) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS tasks");
-        this.onCreate(sqLiteDatabase);
         this.isUpdated = true;
     }
 

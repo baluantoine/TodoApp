@@ -1,3 +1,6 @@
+/*****************************************
+ * Author : Baluzolanga Antoine          *
+ *****************************************/
 package sm.fr.todoapp.model;
 
 import android.database.sqlite.SQLiteException;
